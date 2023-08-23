@@ -10,6 +10,7 @@ import numpy as np
 import argparse
 import matplotlib.pyplot as plt
 
+# This is a test
 
 
 # TODO: Write a function that loads a checkpoint and rebuilds the model
