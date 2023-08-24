@@ -73,10 +73,10 @@ hidden_units = args.hidden_units
 
 from collections import OrderedDict
 classifier = nn.Sequential(OrderedDict([
-    ('fc1', nn.Linear(25088,hidden_untis)),
+    ('fc1', nn.Linear(25088,hidden_units)),
     ( 'ReLu1', nn.ReLU()),
     ( 'drop1', nn.Dropout(p=0.5, inplace=False)),
-    ( 'fc3', nn.Linear(hidden_untis,102)),
+    ( 'fc3', nn.Linear(hidden_units,102)),
     ( 'out', nn.LogSoftmax(dim=1))
     ]))
 
