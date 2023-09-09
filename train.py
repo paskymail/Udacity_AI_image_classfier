@@ -9,12 +9,13 @@ from PIL import Image
 import numpy as np
 import argparse
 
+# python train.py flowers --save_dir saved_models/model_checkpoint2.pth --learning_rate 0.01 --hidden_units 512 --epochs 3
 
 parser = argparse.ArgumentParser()
 parser.add_argument("data_dir", help="specify the data directory")
 parser.add_argument("--save_dir", default= 'saved_models/model_checkpoint.pth', dest='save_dir', help="specify the saving directory")
 parser.add_argument("--arch", default= 'vgg16', dest= 'architecture', choices=['vgg13', 'vgg16'], help="specify the Network Architecture")
-parser.add_argument("--learning_rate", default= 0.03, dest = 'learning_rate', help="specify the data directory", type=float)
+parser.add_argument("--learning_rate", default= 0.01, dest = 'learning_rate', help="specify the data directory", type=float)
 parser.add_argument("--hidden_units", default= 512, dest = 'hidden_units', help="specify the number of hidden units", type=int)
 parser.add_argument("--epochs", default= 2, dest = 'epochs', help="specify the number of epochs", type=int)
 parser.add_argument("--gpu", action='store_true', default=False, dest='gpu',help="specify the usage of gpu")
@@ -107,7 +108,7 @@ criterion = nn.NLLLoss()
 
 #define optimizer and select only the classifier parameters to be optimized
 learning_rate = args.learning_rate
-optimizer = optim.Adam(model.classifier.parameters(), lr=learning_rate)
+optimizer = optim.SGD(model.classifier.parameters(), lr=learning_rate, momentum=0.9)
 
 
 epochs = args.epochs

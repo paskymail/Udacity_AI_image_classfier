@@ -18,6 +18,7 @@ import json
 
 #from ipynb.fs.full.Image_Classifier_Project import imshow
 
+# python predict.py flowers/test/1/image_06743.jpg saved_models/model_checkpoint2.pth --category_names cat_to_name.json
 
 # Create the command line App
 parser = argparse.ArgumentParser()
