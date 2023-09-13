@@ -13,7 +13,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("data_dir", help="specify the data directory")
-parser.add_argument("--save_dir", default= 'saved_models/model_checkpoint.pth', dest='save_dir', help="specify the saving directory")
+parser.add_argument("--save_dir", default= 'saved_models/model_checkpoint2.pth', dest='save_dir', help="specify the saving directory")
 parser.add_argument("--arch", default= 'vgg16', dest= 'architecture', choices=['vgg13', 'vgg16'], help="specify the Network Architecture")
 parser.add_argument("--learning_rate", default= 0.01, dest = 'learning_rate', help="specify the data directory", type=float)
 parser.add_argument("--hidden_units", default= 512, dest = 'hidden_units', help="specify the number of hidden units", type=int)

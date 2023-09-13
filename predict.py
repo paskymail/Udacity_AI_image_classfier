@@ -23,7 +23,7 @@ import json
 # Create the command line App
 parser = argparse.ArgumentParser()
 parser.add_argument("image_input", help="specify the image directory")
-parser.add_argument("checkpoint", help="specify the checkpoint directory")
+parser.add_argument("checkpoint", default= 'saved_models/model_checkpoint2.pth', help="specify the checkpoint directory")
 parser.add_argument("--category_names", dest= 'cat_to_name', help="specify the Network Architecture")
 parser.add_argument("--top_k", default= 5, dest = 'topk', help="specify the number of top probabilities", type=int)
 parser.add_argument("--gpu", action='store_true', default=False, dest='gpu', help="specify the usage of gpu")
