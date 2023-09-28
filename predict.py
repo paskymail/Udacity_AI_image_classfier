@@ -18,7 +18,7 @@ import json
 
 #from ipynb.fs.full.Image_Classifier_Project import imshow
 
-# python predict.py flowers/test/1/image_06743.jpg saved_models/model_checkpoint2.pth --category_names cat_to_name.json
+# python predict.py flowers/test/1/image_06743.jpg saved_models/model_checkpoint2.pth --category_names cat_to_name.json --gpu --top_k 3
 
 # Create the command line App
 parser = argparse.ArgumentParser()
@@ -32,7 +32,7 @@ print(args)
 
 #Predicts the topk classes 
 
-def predict(image_path, model, topk=5):
+def predict(image_path, model, topk= args.topk):
     ''' Predict the class (or classes) of an image using a trained deep learning model.
     '''
     
@@ -44,8 +44,7 @@ def predict(image_path, model, topk=5):
 
 
     # Choose between GPU or CPU
-    gpu = False
-    device = torch.device('cuda' if gpu else 'cpu')
+    device = torch.device('cuda' if (args.gpu and torch.cuda.is_available()) else 'cpu')
 
     #Move model to gpu or cpu
     model.to(device)
@@ -53,7 +52,7 @@ def predict(image_path, model, topk=5):
     #move the image to gpu or cpu
     processed_image.to(device)
 
-    
+
     #evaluate
     model.eval()
     with torch.no_grad():
@@ -62,7 +61,7 @@ def predict(image_path, model, topk=5):
 
 
     #Get the classes
-    top_p, predicted_idx = prob.topk(5)
+    top_p, predicted_idx = prob.topk(args.topk)
 
 
     #Get the index to class dictionary

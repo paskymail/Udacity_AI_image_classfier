@@ -89,8 +89,7 @@ model.classifier = classifier
 
 
 # Choose between GPU or CPU
-gpu = args.gpu
-device = torch.device('cuda' if gpu else 'cpu')
+device = torch.device('cuda' if (args.gpu and torch.cuda.is_available()) else 'cpu')
 
 #Move model to gpu or cpu
 model.to(device)
