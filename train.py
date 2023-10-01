@@ -4,6 +4,7 @@ from torch import nn
 from torch import optim
 import torch.nn.functional as F
 from torchvision import datasets, transforms, models
+from collections import OrderedDict
 
 from PIL import Image
 import numpy as np
@@ -56,25 +57,25 @@ trainloader = torch.utils.data.DataLoader(train_data, batch_size=64, shuffle=Tru
 testloader = torch.utils.data.DataLoader(test_data, batch_size=64)
 validloader = torch.utils.data.DataLoader(valid_data, batch_size=64)
 
-#Define the model
+
+#Define the model architecture
 architecture = args.architecture
 
-if architecture == "vgg13":
-    model = models.vgg13(weights=models.VGG13_Weights.DEFAULT)
+try:
+    model = getattr(models, architecture)(weights="DEFAULT")
 
-elif architecture == "vgg16":
-    model = models.vgg16(weights=models.VGG16_Weights.DEFAULT)
-
-else: 
+except:
     print("Architecture not valid")
 
+
 #Define a new, untrained feed-forward network as a classifier, using ReLU activations and dropout
+in_features_dict= {"alexnet": 9216, "vgg13": 25088, "vgg16": 25088, "resnet18": 512,  "densenet121": 1024 }
+in_features = in_features_dict[architecture]
 
 hidden_units = args.hidden_units
 
-from collections import OrderedDict
 classifier = nn.Sequential(OrderedDict([
-    ('fc1', nn.Linear(25088,hidden_units)),
+    ('fc1', nn.Linear(in_features,hidden_units)),
     ( 'ReLu1', nn.ReLU()),
     ( 'drop1', nn.Dropout(p=0.5, inplace=False)),
     ( 'fc3', nn.Linear(hidden_units,102)),
